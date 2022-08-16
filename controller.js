@@ -36,15 +36,14 @@ module.exports = {
         let { type } = req.body
         let index = houses.findIndex(elem => +elem.id === +id)
         //conditional checks to see if type is minus or plus
-        if (houses[index].rating === 5 && type === 'plus') {
-            res.status(400).send('cannot go above 5') //user error handling
-        } else if (movies[index].rating === 0 && type === 'minus') {
-            res.status(400).send('cannot go below 0')
+        if (houses[index].price <= 10000 && type === 'minus') {
+            houses[index].price =0;
+            res.status(200).send(houses)
         } else if (type === 'plus') {
-            houses[index].rating++
-            res.status(200).send(houses) //increase rating if plus
+            houses[index].price+=10000;
+            res.status(200).price(houses) //increase rating if plus
         } else if (type === 'minus') {
-            houses[index].rating--
+            houses[index].price-=10000;
             res.status(200).send(houses)
         } else {
             res.sendStatus(400)
